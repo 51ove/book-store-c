@@ -1,8 +1,6 @@
-import Footer from "../components/common/Footer";
-import Header from "../components/common/Header";
-import { formatNumber } from "../utils/format";
-
-const COUNT = 10000;
+import Button from "../components/common/Button";
+import InputText from "../components/common/InputText";
+import Title from "../components/common/Title";
 
 function Home(){
     return (

@@ -1,7 +1,10 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { getTheme, ThemeName } from "../style/theme";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "../style/global";
+
+const DEFAULT_THEME_NAME = "light";
+const THEME_LOCALSTORAGE_KEY = "book_store_theme";
 
 interface State {
     themeName : ThemeName;
@@ -13,6 +16,7 @@ export const state = {
     toggleTheme: ()=> {},
 }
 
+// ThemeContext
 export const ThemeContext = createContext<State>(state);
 
 
@@ -23,7 +27,16 @@ export const BookStoreThemeProvider = ({children}:
         
         const toggleTheme = ()=> {
             setThemeName(themeName === 'light' ? 'dark' : 'light');
-        }
+            // 로컬 스토리지에 저장
+            localStorage.setItem(THEME_LOCALSTORAGE_KEY,themeName === 'light' ? 'dark' : 'light');
+        };
+
+        // 처음 실행 시에
+        useEffect(()=>{
+            const savedThemeName = localStorage.getItem(THEME_LOCALSTORAGE_KEY) as ThemeName;
+            
+            setThemeName(savedThemeName || DEFAULT_THEME_NAME);
+        }, []);
 
         return(
             <ThemeContext.Provider value={{themeName, toggleTheme}}>
@@ -32,5 +45,6 @@ export const BookStoreThemeProvider = ({children}:
                     {children}
                 </ThemeProvider>
             </ThemeContext.Provider>
-        )
-    }
+        );
+    };
+
