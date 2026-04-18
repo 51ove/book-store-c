@@ -19,9 +19,6 @@ export const GlobalStyle = createGlobalStyle<Props>`
         padding: 0;
     };
 
-     * {
-    color : ${(props)=>props.themeName === "light" ?
-        "black" : "white"};
-    }
+    
 
 `;

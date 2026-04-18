@@ -4,9 +4,9 @@ export type ThemeName = "light" | "dark";
 export type ColorKey = "primary" | "background" | "secondary"| "border" | "text";
 export type HeadingSize = "large" | "medium" | "small";
 export type ButtonSize = "large" | "medium" | "small";
-export type ButtonScheme = "primary" | "normal";
-export type LayoutWidth = "large" | "medium" | "small"
-
+export type ButtonScheme = "primary" | "normal" | "like";
+export type LayoutWidth = "large" | "medium" | "small";
+export type MediaQuery = "mobile" | "tablet" | "desktop";
 
 export interface Theme {
     name : ThemeName;
@@ -38,6 +38,9 @@ export interface Theme {
         width: {
             [key in LayoutWidth] : string;
         }
+    };
+    mediaQuery: {
+        [key in MediaQuery]: string;
     };
 };
 
@@ -84,7 +87,11 @@ export const light : Theme= {
         normal: {
             color: "black",
             backgroundColor: "lightgrey"
-        }
+        },
+        like: {
+            color: "white",
+            backgroundColor: "coral",
+        },
     },
     borderRadius: {
         default: "4px",
@@ -96,6 +103,11 @@ export const light : Theme= {
             small: "320px",
         }
     },
+    mediaQuery: {
+        mobile: "(max-width: 768px)", // 768px 이하에서 동작
+        tablet: "(max-width: 1024px)", // 1024px 이하에서 동작
+        desktop: "(min-width: 1025px)", // 1025px 이상에서 동작
+    }
 };
 
 export const dark : Theme = {
